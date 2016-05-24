@@ -8,12 +8,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 public class HttpClientGetTest {
     private final static String USER_AGENT = "Mozilla/5.0";
 
     public static void main(String[] args) throws Exception, IOException {
-        String url = "http://www.baidu.com/s?q=httpClient";
+        String url = "https://www.baidu.com/con?from=self?_t=1464052756486";
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
@@ -24,6 +26,11 @@ public class HttpClientGetTest {
 
         System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
 
+        System.out.println(response.toString());
+        
+//        System.out.println(response.getEntity());
+//        
+//        System.out.println(EntityUtils.toString(response.getEntity()));
         BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
         StringBuffer result = new StringBuffer();
@@ -31,5 +38,6 @@ public class HttpClientGetTest {
         while ((line = rd.readLine()) != null) {
             result.append(line);
         }
+        System.out.println(result);
     }
 }
